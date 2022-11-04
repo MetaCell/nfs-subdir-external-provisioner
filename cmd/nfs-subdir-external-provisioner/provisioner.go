@@ -209,9 +209,16 @@ func main() {
 	flag.Parse()
 	flag.Set("logtostderr", "true")
 
-	server := os.Getenv("NFS_SERVER")
+	// server := os.Getenv("NFS_SERVER")
+	// if server == "" {
+	// 	glog.Fatal("NFS_SERVER not set")
+	// }
+
+	// 2022-11-04 ZS: use the internal K8s service host env variable
+	//                for getting the ip address of the nfs server
+	server := os.Getenv("NFS_SERVICE_SERVICE_HOST")
 	if server == "" {
-		glog.Fatal("NFS_SERVER not set")
+		glog.Fatal("NFS_SERVICE_SERVICE_HOST not set")
 	}
 	path := os.Getenv("NFS_PATH")
 	if path == "" {
